@@ -20,6 +20,11 @@ public class PlayerGun : MonoBehaviour
         {
             Shoot();
         }
+
+        if (PlayerScript.instance.playerDir == PlayerScript.PlayerDir.Neutral)
+        {
+            Debug.LogError("Beweegt in richting");
+        }
     }
 
     private void MoveGun()
