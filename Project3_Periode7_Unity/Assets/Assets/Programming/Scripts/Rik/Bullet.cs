@@ -16,7 +16,14 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector3.back * 20f * Time.deltaTime);
+        if (tag == "PlayerBullet")
+        {
+            transform.Translate(Vector3.back * 20f * Time.deltaTime);
+        }
+        else if (tag == "EnemyBullet")
+        {
+            transform.Translate(Vector3.forward * 20f * Time.deltaTime);
+        }
 
         Destroy(gameObject, 4);
 
@@ -34,7 +41,7 @@ public class Bullet : MonoBehaviour
             }
             if (Colliders[i].CompareTag("Enemy") && tag == "PlayerBullet")
             {
-                Enemy.hp -= 1;
+                //Enemy.hp -= 1;
                 Destroy(gameObject);
             }
         }
