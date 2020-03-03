@@ -20,11 +20,6 @@ public class PlayerGun : MonoBehaviour
         {
             Shoot();
         }
-
-        if (PlayerScript.instance.playerDir == PlayerScript.PlayerDir.Neutral)
-        {
-            Debug.LogError("Beweegt in richting");
-        }
     }
 
     private void MoveGun()
@@ -36,10 +31,11 @@ public class PlayerGun : MonoBehaviour
         if (groundPlane.Raycast(cameraRay, out rayLength))
         {
             Vector3 pointToLook = cameraRay.GetPoint(rayLength);
-            //if ()
-            //{
-            transform.LookAt(new Vector3(pointToLook.x, pointToLook.y, transform.position.z));
-            //}
+
+            if (PlayerScript.instance.playerDir != PlayerScript.PlayerDir.Neutral)
+            {
+                transform.LookAt(new Vector3(pointToLook.x, pointToLook.y, transform.position.z));
+            }
         }
     }
 
