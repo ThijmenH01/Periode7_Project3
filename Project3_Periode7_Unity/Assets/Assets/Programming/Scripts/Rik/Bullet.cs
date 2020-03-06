@@ -16,11 +16,11 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
-        if (tag == "PlayerBullet")
+        if (CompareTag("PlayerBullet"))
         {
             transform.Translate(Vector3.back * 20f * Time.deltaTime);
         }
-        else if (tag == "EnemyBullet")
+        else if (CompareTag("EnemyBullet"))
         {
             transform.Translate(Vector3.forward * 20f * Time.deltaTime);
         }
@@ -39,9 +39,9 @@ public class Bullet : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-            if (Colliders[i].CompareTag("Enemy") && tag == "PlayerBullet")
+            if (Colliders[i].CompareTag("Enemy") && CompareTag("PlayerBullet"))
             {
-                //Enemy.hp -= 1;
+                Enemy.instance.hp -= 1;
                 Destroy(gameObject);
             }
         }

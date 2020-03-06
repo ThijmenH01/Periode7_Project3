@@ -8,17 +8,16 @@ public class PlayerGun : MonoBehaviour
     [SerializeField] private GameObject bullet;
     private float shootTimer;
 
-    private void Start()
-    {
-    }
-
     private void Update()
     {
         MoveGun();
 
         if (Input.GetMouseButton(0))
         {
-            Shoot();
+            if (PlayerScript.instance.playerDir != PlayerScript.PlayerDir.Neutral)
+            {
+                Shoot();
+            }
         }
     }
 
@@ -34,7 +33,10 @@ public class PlayerGun : MonoBehaviour
 
             if (PlayerScript.instance.playerDir != PlayerScript.PlayerDir.Neutral)
             {
+                //if (transform.eulerAngles.x < 50f && transform.eulerAngles.x > -50)
+                //{
                 transform.LookAt(new Vector3(pointToLook.x, pointToLook.y, transform.position.z));
+                //}
             }
         }
     }

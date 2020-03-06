@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Thijmen/Scenes/Thijmen.unity
+- path: Assets/Scenes/Rik.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     private GameObject player;
     public GameObject bullet;
     public Transform fireposition;
+    public static Enemy instance;
     public int hp = 2;
 
     private void Start()
@@ -14,6 +15,8 @@ public class Enemy : MonoBehaviour
         player = GameObject.Find("Player");
 
         StartCoroutine(BulletFire());
+
+        instance = this;
     }
 
     private void Update()
@@ -29,10 +32,21 @@ public class Enemy : MonoBehaviour
         transform.rotation = Quaternion.Euler(rotation);
 
         transform.GetChild(0).transform.LookAt(player.transform.position);
+        CheckForObstacle();
 
         if (hp <= 0)
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void CheckForObstacle()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.forward, out hit, Mathf.Infinity))
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.blue);
+            Debug.Log("Did Hit");
         }
     }
 
@@ -46,15 +60,6 @@ public class Enemy : MonoBehaviour
                 GameObject enemyBullet = Instantiate(bullet, fireposition.position, Quaternion.identity);
                 enemyBullet.tag = "EnemyBullet";
             }
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.CompareTag("PlayerBullet"))
-        {
-            hp -= 1;
-            Debug.LogError("collide");
         }
     }
 }
