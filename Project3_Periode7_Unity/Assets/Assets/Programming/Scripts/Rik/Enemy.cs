@@ -25,14 +25,17 @@ public class Enemy : MonoBehaviour
         {
             transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, transform.position.y, 0), Time.deltaTime * 3);
         }
+        CheckForObstacle();
 
-        Vector3 rotation = Quaternion.LookRotation(player.transform.position).eulerAngles;
-        rotation.x = 0f;
+        if (Vector3.Distance(transform.position, player.transform.position) < 8)
+        {
+            Vector3 rotation = Quaternion.LookRotation(player.transform.position).eulerAngles;
+            rotation.x = 0f;
 
-        transform.rotation = Quaternion.Euler(rotation);
+            transform.rotation = Quaternion.Euler(rotation);
+        }
 
         transform.GetChild(0).transform.LookAt(player.transform.position);
-        CheckForObstacle();
 
         if (hp <= 0)
         {
@@ -43,10 +46,18 @@ public class Enemy : MonoBehaviour
     private void CheckForObstacle()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.forward, out hit, Mathf.Infinity))
+        RaycastHit hit2;
+        if (Physics.Raycast(transform.position, Vector3.right, out hit, 1f))
         {
+            GetComponent<Rigidbody>().AddForce(new Vector3(10, 0, 0));
+
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.blue);
-            Debug.Log("Did Hit");
+        }
+        else if (Physics.Raycast(transform.position, Vector3.left, out hit2, 1f))
+        {
+            GetComponent<Rigidbody>().AddForce(new Vector3(-10, 0, 0));
+
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.blue);
         }
     }
 
