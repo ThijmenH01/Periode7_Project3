@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     private GameObject player;
     public GameObject bullet;
     public Transform fireposition;
+    private Rigidbody rb;
     public static Enemy instance;
     public int hp = 2;
 
@@ -15,6 +16,8 @@ public class Enemy : MonoBehaviour
         player = GameObject.Find("Player");
 
         StartCoroutine(BulletFire());
+
+        rb = GetComponent<Rigidbody>();
 
         instance = this;
     }
@@ -25,7 +28,6 @@ public class Enemy : MonoBehaviour
         {
             transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, transform.position.y, 0), Time.deltaTime * 3);
         }
-        CheckForObstacle();
 
         if (Vector3.Distance(transform.position, player.transform.position) < 8)
         {
@@ -33,6 +35,10 @@ public class Enemy : MonoBehaviour
             rotation.x = 0f;
 
             transform.rotation = Quaternion.Euler(rotation);
+        }
+        else
+        {
+            CheckForObstacle();
         }
 
         transform.GetChild(0).transform.LookAt(player.transform.position);
@@ -45,19 +51,13 @@ public class Enemy : MonoBehaviour
 
     private void CheckForObstacle()
     {
+        rb.AddForce(600 * Time.deltaTime, 0, 0);
+
         RaycastHit hit;
-        RaycastHit hit2;
-        if (Physics.Raycast(transform.position, Vector3.right, out hit, 1f))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, 2f))
         {
-            GetComponent<Rigidbody>().AddForce(new Vector3(10, 0, 0));
-
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.blue);
-        }
-        else if (Physics.Raycast(transform.position, Vector3.left, out hit2, 1f))
-        {
-            GetComponent<Rigidbody>().AddForce(new Vector3(-10, 0, 0));
-
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.blue);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * hit.distance, Color.blue);
+            Debug.Log("Did hit");
         }
     }
 
