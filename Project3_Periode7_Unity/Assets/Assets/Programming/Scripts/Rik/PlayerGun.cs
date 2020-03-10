@@ -1,17 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerGun : MonoBehaviour {
     [SerializeField] private float fireRate = 7.5f;
     [SerializeField] private PlayerScript player;
     [SerializeField] private GameObject bullet;
-    [SerializeField] private CameraFollow cam;
+    [SerializeField] private CinemachineVirtualCamera vcam;
     private float shootTimer;
     private float nextTimeToFire = 0f;
 
     private void Start() {
         player = transform.parent.GetComponentInParent<PlayerScript>();
+        vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;
+
     }
 
     private void Update() {
@@ -19,9 +22,13 @@ public class PlayerGun : MonoBehaviour {
 
         if(PlayerScript.instance.playerDir != PlayerScript.PlayerDir.Neutral) {
             if(Input.GetMouseButton( 0 ) && Time.time >= nextTimeToFire) {
+                vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0.5f;
                 Shoot();
                 Recoil();
-                StartCoroutine( cam.Shake(50f, 2f) );
+            }
+
+            if(Input.GetMouseButtonUp( 0 )){
+                vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;
             }
         }
     }
@@ -60,20 +67,4 @@ public class PlayerGun : MonoBehaviour {
         }
         player.transform.position = pos;
     }
-
-    //private IEnumerator CamShake(float dur , float mag) {
-
-    //    Vector3 originalPos = mainCam.transform.localPosition;
-    //    float elapsed = 0f;
-    //    while(elapsed < dur) {
-    //        float x = Random.Range( -1f , 1f ) * mag;
-    //        float y = Random.Range( -1f , 1f ) * mag;
-
-    //        mainCam.transform.localPosition = new Vector3( x , y , originalPos.z );
-
-    //        elapsed += Time.deltaTime;
-    //        yield return null;
-    //    }
-    //    mainCam.transform.localPosition = originalPos;
-    //}
 }

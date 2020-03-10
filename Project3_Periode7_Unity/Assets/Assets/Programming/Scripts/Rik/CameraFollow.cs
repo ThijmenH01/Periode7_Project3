@@ -37,10 +37,12 @@ public class CameraFollow : MonoBehaviour {
 
     public IEnumerator Shake(float magnitude , float duration) {
 
-        Vector3 currentPos = transform.localPosition;
-        Vector3 newPos = new Vector3( currentPos.x + Random.Range( -magnitude , magnitude ) , currentPos.y + Random.Range( -magnitude , magnitude ) , transform.localPosition.z );
+        while(true) {
+            Vector3 currentPos = transform.localPosition;
+            Vector3 newPos = new Vector3( currentPos.x + Random.Range( -magnitude , magnitude ) , currentPos.y + Random.Range( -magnitude , magnitude ) , transform.localPosition.z );
 
-        transform.localPosition = Vector3.Lerp( currentPos , newPos , 0.5f * Time.deltaTime );
-        yield return new WaitForSeconds( duration );
+            transform.localPosition = Vector3.Lerp( currentPos , newPos , 0.5f * Time.deltaTime );
+            yield return new WaitForEndOfFrame();
+        }
     }
 }
