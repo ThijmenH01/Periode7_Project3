@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Camera))]
-public class CameraFollow : MonoBehaviour
-{
+[RequireComponent( typeof( Camera ) )]
+public class CameraFollow : MonoBehaviour {
     public static CameraFollow instance;
     public Transform target;
     public float smoothTime = .5f;
@@ -14,35 +13,34 @@ public class CameraFollow : MonoBehaviour
     public float maxZoom = 10f;
     public float zoomLimiter = 50f;
 
-    private void Update()
-    {
+    private void Update() {
         Move();
         instance = this;
     }
 
-    private void Move()
-    {
+    private void Move() {
         Vector3 centerPoint = GetCenterPoint();
 
         Vector3 newPosition = centerPoint + offset;
 
-        transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
+        transform.position = Vector3.SmoothDamp( transform.position , newPosition , ref velocity , smoothTime );
     }
 
-    private Vector3 GetCenterPoint()
-    {
-        var bounds = new Bounds(target.position, Vector3.zero);
+    private Vector3 GetCenterPoint() {
+        var bounds = new Bounds( target.position , Vector3.zero );
 
-        bounds.Encapsulate(target.position);
+        bounds.Encapsulate( target.position );
 
         return bounds.center;
     }
 
-    public IEnumerator Shake()
-    {
-        yield return new WaitForSeconds(0.1f);
 
-        transform.localPosition += Random.insideUnitSphere * 2f;
-        Debug.LogError("Shakey");
+    public IEnumerator Shake(float magnitude , float duration) {
+
+        Vector3 currentPos = transform.localPosition;
+        Vector3 newPos = new Vector3( currentPos.x + Random.Range( -magnitude , magnitude ) , currentPos.y + Random.Range( -magnitude , magnitude ) , transform.localPosition.z );
+
+        transform.localPosition = Vector3.Lerp( currentPos , newPos , 0.5f * Time.deltaTime );
+        yield return new WaitForSeconds( duration );
     }
 }
