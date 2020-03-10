@@ -39,11 +39,16 @@ public class Bullet : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-            if (Colliders[i].CompareTag("Enemy") && CompareTag("PlayerBullet"))
+            if (Colliders[i].CompareTag("Enemy"))
             {
-                Enemy.instance.hp -= 1;
                 Destroy(gameObject);
             }
+            //if (Colliders[i].CompareTag("Enemy") && CompareTag("PlayerBullet"))
+            //{
+            //    Enemy.instance.hp -= 1;
+            //    Debug.LogError("Hit enemy");
+            //    Destroy(gameObject);
+            //}
         }
     }
 

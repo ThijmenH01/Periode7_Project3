@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public Vector3 _BoxSize;
     private GameObject player;
     public GameObject bullet;
     public Transform fireposition;
@@ -41,6 +42,8 @@ public class Enemy : MonoBehaviour
             CheckForObstacle();
         }
 
+        DidHit();
+
         transform.GetChild(0).transform.LookAt(player.transform.position);
 
         if (hp <= 0)
@@ -54,10 +57,24 @@ public class Enemy : MonoBehaviour
         rb.AddForce(600 * Time.deltaTime, 0, 0);
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, 2f))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, 5f))
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * hit.distance, Color.blue);
             Debug.Log("Did hit");
+        }
+
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * hit.distance, Color.blue);
+    }
+
+    private void DidHit()
+    {
+        Collider[] Colliders = Physics.OverlapBox(transform.position + new Vector3(0, 0, 0), _BoxSize);
+        for (int i = 0; i < Colliders.Length; i++)
+        {
+            if (Colliders[i].CompareTag("PlayerBullet"))
+            {
+                hp -= 1;
+            }
         }
     }
 
