@@ -5,8 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class CameraFollow : MonoBehaviour
 {
-    public List<Transform> targets;
-    private float smoothTime = .5f;
+    public static CameraFollow instance;
+    public Transform target;
+    public float smoothTime = .5f;
     public Vector3 offset;
     private Vector3 velocity;
     public float minZoom = 40f;
@@ -15,10 +16,8 @@ public class CameraFollow : MonoBehaviour
 
     private void Update()
     {
-        if (targets.Count == 0)
-            return;
-
         Move();
+        instance = this;
     }
 
     private void Move()
@@ -32,17 +31,18 @@ public class CameraFollow : MonoBehaviour
 
     private Vector3 GetCenterPoint()
     {
-        if (targets.Count == 1)
-        {
-            return targets[0].position;
-        }
+        var bounds = new Bounds(target.position, Vector3.zero);
 
-        var bounds = new Bounds(targets[0].position, Vector3.zero);
-        for (int i = 0; i < targets.Count; i++)
-        {
-            bounds.Encapsulate(targets[i].position);
-        }
+        bounds.Encapsulate(target.position);
 
         return bounds.center;
+    }
+
+    public IEnumerator Shake()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        transform.localPosition += Random.insideUnitSphere * 2f;
+        Debug.LogError("Shakey");
     }
 }
