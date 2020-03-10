@@ -57,13 +57,15 @@ public class Enemy : MonoBehaviour
         rb.AddForce(600 * Time.deltaTime, 0, 0);
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, 5f))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.back), out hit, 5f))
         {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * hit.distance, Color.blue);
+            rb.AddForce(-600 * Time.deltaTime, 0, 0);
+
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.back) * hit.distance, Color.blue);
             Debug.Log("Did hit");
         }
 
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * hit.distance, Color.blue);
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.back) * 5f, Color.blue);
     }
 
     private void DidHit()
