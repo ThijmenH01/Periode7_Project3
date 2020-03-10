@@ -54,12 +54,36 @@ public class Enemy : MonoBehaviour
 
     private void CheckForObstacle()
     {
+        bool switchSide = false;
+
+        switch (switchSide)
+        {
+            case true:
+                rb.AddForce(-300 * Time.deltaTime, 0, 0);
+                break;
+
+            case false:
+                rb.AddForce(300 * Time.deltaTime, 0, 0);
+                break;
+        }
+
         rb.AddForce(600 * Time.deltaTime, 0, 0);
+
+        Debug.LogError(switchSide);
 
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.back), out hit, 5f))
         {
-            rb.AddForce(-600 * Time.deltaTime, 0, 0);
+            //rb.AddForce(-600 * Time.deltaTime, 0, 0);
+
+            if (switchSide == false)
+            {
+                switchSide = true;
+            }
+            else
+            {
+                switchSide = false;
+            }
 
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.back) * hit.distance, Color.blue);
             Debug.Log("Did hit");
