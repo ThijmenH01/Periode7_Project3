@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+<<<<<<< Updated upstream
 public class PlayerGun : MonoBehaviour {
+=======
+public class PlayerGun : MonoBehaviour {
+>>>>>>> Stashed changes
     [SerializeField] private float fireRate = 7.5f;
     [SerializeField] private PlayerScript player;
     [SerializeField] private GameObject bullet;
     private float shootTimer;
     private float nextTimeToFire = 0f;
 
+<<<<<<< Updated upstream
     private void Start() {
         player = transform.parent.GetComponentInParent<PlayerScript>();
     }
@@ -21,6 +26,20 @@ public class PlayerGun : MonoBehaviour {
                 Shoot();
                 Recoil();
             }
+=======
+    private void Start() {
+        player = transform.parent.GetComponentInParent<PlayerScript>();
+    }
+
+    private void Update() {
+        MoveGun();
+
+        if(PlayerScript.instance.playerDir != PlayerScript.PlayerDir.Neutral) {
+            if(Input.GetMouseButton( 0 ) && Time.time >= nextTimeToFire) {
+                Shoot();
+                Recoil();
+            }
+>>>>>>> Stashed changes
         }
     }
 
@@ -41,6 +60,7 @@ public class PlayerGun : MonoBehaviour {
         }
     }
 
+<<<<<<< Updated upstream
     private void Shoot() {
         GameObject Playerbullet = Instantiate( bullet , transform.GetChild( 0 ).transform.position , Quaternion.identity );
         Playerbullet.tag = "PlayerBullet";  
@@ -57,5 +77,23 @@ public class PlayerGun : MonoBehaviour {
             pos.x = Mathf.Lerp( player.transform.position.x , player.transform.position.x - 5 , 1f * Time.deltaTime );
         }
         player.transform.position = pos;
+=======
+    private void Shoot() {
+        GameObject Playerbullet = Instantiate( bullet , transform.GetChild( 0 ).transform.position , Quaternion.identity );
+        Playerbullet.tag = "PlayerBullet";  
+        nextTimeToFire = Time.time + 1f / fireRate;
+    }
+
+    private void Recoil() {
+        Vector2 pos = player.transform.position;
+        if(PlayerScript.instance.playerDir == PlayerScript.PlayerDir.Left) {
+            pos.x = Mathf.Lerp( player.transform.position.x , player.transform.position.x + 5 , 1f * Time.deltaTime );
+        }
+
+        if(PlayerScript.instance.playerDir == PlayerScript.PlayerDir.Right) {
+            pos.x = Mathf.Lerp( player.transform.position.x , player.transform.position.x - 5 , 1f * Time.deltaTime );
+        }
+        player.transform.position = pos;
+>>>>>>> Stashed changes
     }
 }
