@@ -5,12 +5,14 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public Vector3 _BoxSize;
+    private Vector3 dir;
     private GameObject player;
     public GameObject bullet;
     public Transform fireposition;
     private Rigidbody rb;
     public static Enemy instance;
-    public int hp = 2;
+    public int hp = 3;
+    private bool switchSide;
 
     private void Start()
     {
@@ -54,42 +56,38 @@ public class Enemy : MonoBehaviour
 
     private void CheckForObstacle()
     {
-        bool switchSide = false;
+        float magnitude = 0;
 
         switch (switchSide)
         {
             case true:
-                rb.AddForce(-300 * Time.deltaTime, 0, 0);
+                magnitude = -5f;
+                dir = Vector3.forward;
                 break;
 
             case false:
-                rb.AddForce(300 * Time.deltaTime, 0, 0);
+                magnitude = 5f;
+                dir = Vector3.back;
                 break;
         }
 
-        rb.AddForce(600 * Time.deltaTime, 0, 0);
+        transform.Translate(magnitude * Time.deltaTime, 0, 0, Space.World);
 
         Debug.LogError(switchSide);
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.back), out hit, 5f))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(dir), out hit, 1f))
         {
-            //rb.AddForce(-600 * Time.deltaTime, 0, 0);
-
-            if (switchSide == false)
-            {
-                switchSide = true;
-            }
-            else
-            {
+            if (switchSide == true)
                 switchSide = false;
-            }
+            else if (switchSide == false)
+                switchSide = true;
 
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.back) * hit.distance, Color.blue);
+            Debug.DrawRay(transform.position, transform.TransformDirection(dir) * hit.distance, Color.blue);
             Debug.Log("Did hit");
         }
 
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.back) * 5f, Color.blue);
+        Debug.DrawRay(transform.position, transform.TransformDirection(dir) * 1f, Color.blue);
     }
 
     private void DidHit()

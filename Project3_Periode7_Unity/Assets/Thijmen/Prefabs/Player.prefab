@@ -28,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5366322101802766599}
-  m_LocalRotation: {x: -0, y: -0.00000041723246, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children:
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d9827848d66942a49b49f016a6344f79, type: 2}
+  - {fileID: 2100000, guid: 7bca6e4bbd79d174f86b8e1dec429737, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -187,7 +187,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3104284a28d0b6144b3edc78b5f4332a, type: 2}
+  - {fileID: 2100000, guid: 35335233312036e4b85ac0509b49977c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -234,11 +234,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allowedToBoost: 0
-  fuelCapactity: 0
+  fuelCapactity: 100
   currentFuel: 0
   jetpackForceVertical: 15
   jetpackForceHorizontal: 10
-  fuelUssageSpeed: 0
+  fuelUssageSpeed: 40
   fuelRefillSpeed: 100
 --- !u!1 &5366322102084130539
 GameObject:
@@ -298,7 +298,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 35335233312036e4b85ac0509b49977c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -359,7 +359,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5366322102281115811}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.325598, y: 2.570872, z: -4.43}
   m_LocalScale: {x: 0.28998, y: 0.28057858, z: 1.1915}
   m_Children:
@@ -392,7 +392,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f6175a86001e52a40b2f5223dc518476, type: 2}
+  - {fileID: 2100000, guid: 371a8ea61d7c90d419faafe97a01bb05, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -425,6 +425,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c05b8a9a9e91614caa4a2d4531ab36e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireRate: 7.5
+  player: {fileID: 0}
   bullet: {fileID: 5294309016622901964, guid: 4fb7dbc2e44b4e941a4a6cfbd83a8183, type: 3}
 --- !u!1 &5366322102652851355
 GameObject:
@@ -450,7 +452,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5366322102652851355}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0.783}
+  m_LocalPosition: {x: 0, y: 0, z: 0.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5366322102281115808}
@@ -545,7 +547,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 35335233312036e4b85ac0509b49977c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
