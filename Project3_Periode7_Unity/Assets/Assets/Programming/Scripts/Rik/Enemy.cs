@@ -17,17 +17,19 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         player = GameObject.Find("Player");
-
         StartCoroutine(BulletFire());
-
         rb = GetComponent<Rigidbody>();
-
         instance = this;
-
         Vector3 rotation = Quaternion.LookRotation(player.transform.position).eulerAngles;
         rotation.x = 0f;
-
         transform.rotation = Quaternion.Euler(rotation);
+        int side = Random.Range(0, 2);
+        if (side == 1)
+            switchSide = true;
+        else if (side == 2)
+            switchSide = false;
+
+        Debug.Log(side);
     }
 
     private void Update()
@@ -56,6 +58,7 @@ public class Enemy : MonoBehaviour
         if (hp <= 0)
         {
             Destroy(gameObject);
+            WaveSystem.instance.enemiesAlive.Remove(this.gameObject);
         }
     }
 
