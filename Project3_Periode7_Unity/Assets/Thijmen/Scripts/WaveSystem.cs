@@ -8,13 +8,12 @@ public class WaveSystem : MonoBehaviour {
     [SerializeField] private List<GameObject> enemiesAlive;
 
     private float spawnInterval = 0.25f;
-    private int amountOfEnemies;
+    private int amountOfEnemies = 10;
     private int currentWave;
 
     private void Update() {
-        if(Input.GetKeyDown( KeyCode.F )) {
-            amountOfEnemies = 10;
-            SpawnWave();
+        if(enemiesAlive.Count == 0) {
+            StartCoroutine(SetNewWave());
         }
     }
 
@@ -29,5 +28,10 @@ public class WaveSystem : MonoBehaviour {
             enemiesAlive.Add( enemyAddToList );
             yield return new WaitForSeconds( spawnInterval );
         }
+    }
+
+    private IEnumerator SetNewWave() {
+        yield return new WaitForSeconds( 5 );
+        SpawnWave();
     }
 }
