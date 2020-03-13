@@ -23,6 +23,11 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         instance = this;
+
+        Vector3 rotation = Quaternion.LookRotation(player.transform.position).eulerAngles;
+        rotation.x = 0f;
+
+        transform.rotation = Quaternion.Euler(rotation);
     }
 
     private void Update()
