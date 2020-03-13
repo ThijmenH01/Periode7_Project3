@@ -76,15 +76,18 @@ public class Enemy : MonoBehaviour
         Debug.LogError(switchSide);
 
         RaycastHit hit;
+
         if (Physics.Raycast(transform.position, transform.TransformDirection(dir), out hit, 1f))
         {
-            if (switchSide == true)
-                switchSide = false;
-            else if (switchSide == false)
-                switchSide = true;
+            if (!hit.collider.CompareTag("Enemy"))
+            {
+                if (switchSide == true)
+                    switchSide = false;
+                else if (switchSide == false)
+                    switchSide = true;
 
-            Debug.DrawRay(transform.position, transform.TransformDirection(dir) * hit.distance, Color.blue);
-            Debug.Log("Did hit");
+                Debug.Log("Did hit");
+            }
         }
 
         Debug.DrawRay(transform.position, transform.TransformDirection(dir) * 1f, Color.blue);
