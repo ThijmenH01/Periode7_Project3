@@ -26,10 +26,10 @@ public class PlayerGun : MonoBehaviour {
                 Shoot();
                 Recoil();
             }
+        }
 
-            if(Input.GetMouseButtonUp( 0 )){
-                vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;
-            }
+        if(Input.GetMouseButtonUp( 0 )) {
+            vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;
         }
     }
 
