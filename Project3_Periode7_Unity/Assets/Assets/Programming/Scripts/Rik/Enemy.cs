@@ -58,7 +58,7 @@ public class Enemy : MonoBehaviour
         if (hp <= 0)
         {
             Destroy(gameObject);
-            WaveSystem.instance.enemiesAlive.Remove(this.gameObject);
+            WaveSystem.Instance.enemiesAlive.Remove(this.gameObject);
         }
     }
 
