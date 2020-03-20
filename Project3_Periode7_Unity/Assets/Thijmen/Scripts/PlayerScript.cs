@@ -28,6 +28,7 @@ public class PlayerScript : MonoBehaviour
 
     private void Update()
     {
+        Debug.LogError(Input.GetAxis("Controller Axis"));
         rotValue = Mathf.Clamp(rb.velocity.magnitude * 10, 0, 40);
         EnumBehaviour();
 
