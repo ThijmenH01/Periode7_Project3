@@ -96,11 +96,9 @@ public class JetPack : MonoBehaviour
         allowedToBoost = false;
         playerRB.drag = 0.1f;
         playerRB.mass = 0.1f;
-        print(playerRB.mass);
         yield return new WaitForSeconds(0.075f);
         playerRB.drag = 1f;
         playerRB.mass = 1f;
-        print(playerRB.mass);
     }
 
     private bool PlayerInput(KeyCode input)

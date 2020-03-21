@@ -54,6 +54,15 @@ public class PlayerGun : MonoBehaviour
                 transform.LookAt(new Vector3(pointToLook.x, pointToLook.y, transform.position.z));
                 //}
             }
+
+            if (Input.mousePosition.x < Camera.main.WorldToScreenPoint(player.transform.position).x)
+            {
+                PlayerScript.instance.playerDir = PlayerScript.PlayerDir.Left;
+            }
+            else
+            {
+                PlayerScript.instance.playerDir = PlayerScript.PlayerDir.Right;
+            }
         }
     }
 

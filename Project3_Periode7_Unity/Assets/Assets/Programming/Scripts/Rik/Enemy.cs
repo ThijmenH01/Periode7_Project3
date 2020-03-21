@@ -28,8 +28,6 @@ public class Enemy : MonoBehaviour
             switchSide = true;
         else if (side == 2)
             switchSide = false;
-
-        Debug.Log(side);
     }
 
     private void Update()
@@ -81,8 +79,6 @@ public class Enemy : MonoBehaviour
 
         transform.Translate(magnitude * Time.deltaTime, 0, 0, Space.World);
 
-        Debug.LogError(switchSide);
-
         RaycastHit hit;
 
         if (Physics.Raycast(transform.position, transform.TransformDirection(dir), out hit, 1f))
@@ -93,8 +89,6 @@ public class Enemy : MonoBehaviour
                     switchSide = false;
                 else if (switchSide == false)
                     switchSide = true;
-
-                Debug.Log("Did hit");
             }
         }
 
