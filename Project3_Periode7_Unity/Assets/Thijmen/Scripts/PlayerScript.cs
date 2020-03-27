@@ -28,11 +28,10 @@ public class PlayerScript : MonoBehaviour
 
     private void Update()
     {
-        Debug.LogError(Input.GetAxis("Controller Axis"));
         rotValue = Mathf.Clamp(rb.velocity.magnitude * 10, 0, 40);
         EnumBehaviour();
 
-        if (PlayerInput(KeyCode.Space) || PlayerInput(KeyCode.JoystickButton0))
+        if (PlayerInput(KeyCode.Space) || PlayerInput(KeyCode.JoystickButton0) || Input.GetMouseButton(1))
         {
             jetpack.UseJetPackFuel();
 
@@ -65,23 +64,19 @@ public class PlayerScript : MonoBehaviour
 
     private void EnumBehaviour()
     {
-        if (PlayerInput(KeyCode.A) || Input.GetAxis("Controller Axis") == -1)
+        if (Input.GetAxis("Controller Axis") == -1)
         {
             playerDir = PlayerDir.Left;
         }
-        else if (PlayerInput(KeyCode.D) || Input.GetAxis("Controller Axis") == 1)
+        else if (Input.GetAxis("Controller Axis") == 1)
         {
             playerDir = PlayerDir.Right;
-        }
-        else
-        {
-            playerDir = PlayerDir.Neutral;
         }
     }
 
     private void FixedUpdate()
     {
-        if (PlayerInput(KeyCode.Space) || PlayerInput(KeyCode.JoystickButton0))
+        if (PlayerInput(KeyCode.Space) || PlayerInput(KeyCode.JoystickButton0) || Input.GetMouseButton(1))
         {
             jetpack.JetPackMovement();
         }
