@@ -1,18 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerScript : MonoBehaviour
 {
     [SerializeField] private float rotSpeed;
+    [SerializeField] private RectTransform healthBar;
     public PlayerDir playerDir;
     private JetPack jetpack;
     private Rigidbody rb;
     private float rotValue;
     public static PlayerScript instance;
-    public static float hp = 10;
+    public static float hp = 20;
 
     public enum PlayerDir
     {
@@ -26,6 +28,7 @@ public class PlayerScript : MonoBehaviour
         instance = this;
         jetpack = GetComponentInChildren<JetPack>();
         rb = GetComponentInChildren<Rigidbody>();
+        healthBar = GameObject.Find("HealthBar").GetComponent<RectTransform>();
     }
 
     private void Update()
@@ -67,6 +70,7 @@ public class PlayerScript : MonoBehaviour
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(-rotValue, 90, 0), Time.deltaTime * rotSpeed);
                 break;
         }
+        healthBar.localScale = new Vector3(hp / 20, 1, 1);
     }
 
     private void EnumBehaviour()
@@ -118,5 +122,6 @@ public class PlayerScript : MonoBehaviour
     private void Death()
     {
         SceneManager.LoadScene(0);
+        hp = 20;
     }
 }
