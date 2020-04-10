@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.Experimental.VFX;
 
 public class JetPack : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class JetPack : MonoBehaviour
 
     [SerializeField] private float jetpackForceHorizontal;
 
+    [Header("Effects")]
+    [SerializeField] private VisualEffect smoke;
+
     [Range(0, 500)]
     [SerializeField] private float fuelUssageSpeed;
 
@@ -35,6 +39,7 @@ public class JetPack : MonoBehaviour
         playerRB = GetComponentInParent<Rigidbody>();
         currentFuel = fuelCapactity;
         bar = GameObject.Find("FuelBar").GetComponent<RectTransform>();
+        smoke.pause = true;
     }
 
     private void Update()
@@ -88,7 +93,13 @@ public class JetPack : MonoBehaviour
                 dir = jetpackForceHorizontal;
             }
             playerRB.AddForce(new Vector3(dir, jetpackForceVertical, Time.deltaTime * 10), ForceMode.Force);
+            smoke.playRate = 500;
+            smoke.Play();
         }
+        //else
+        //{
+        //    smoke.Stop();
+        //}
     }
 
     public IEnumerator DragAsync()
