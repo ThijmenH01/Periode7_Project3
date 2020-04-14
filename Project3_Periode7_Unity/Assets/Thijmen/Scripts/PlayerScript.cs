@@ -50,6 +50,11 @@ public class PlayerScript : MonoBehaviour
                 StartCoroutine(jetpack.DragAsync());
             }
         }
+        else
+        {
+            jetpack.smoke.Stop();
+            jetpack.sparks.Stop();
+        }
 
         switch (playerDir)
         {

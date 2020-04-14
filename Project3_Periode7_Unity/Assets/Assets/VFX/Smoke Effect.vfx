@@ -140,7 +140,7 @@ MonoBehaviour:
     x: 707
     y: -190
     width: 379
-    height: 1395
+    height: 1396
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1073,8 +1073,8 @@ VisualEffectResource:
         - m_ExpressionIndex: 1
           m_Value:
             serializedVersion: 2
-            key0: {r: 0, g: 0, b: 0, a: 1}
-            key1: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 0.81960785}
+            key0: {r: 1, g: 1, b: 1, a: 1}
+            key1: {r: 0.8867924, g: 0.8867924, b: 0.8867924, a: 0.81960785}
             key2: {r: 0, g: 0, b: 0, a: 0}
             key3: {r: 0, g: 0, b: 0, a: 0}
             key4: {r: 0, g: 0, b: 0, a: 0}
@@ -2081,7 +2081,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":0.0},{"color":{"r":0.5377358198165894,"g":0.5377358198165894,"b":0.5377358198165894,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.40588998794555666},{"alpha":0.8196078538894653,"time":1.0}],"gradientMode":1}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0},"time":0.0},{"color":{"r":0.8867924213409424,"g":0.8867924213409424,"b":0.8867924213409424,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.40588998794555666},{"alpha":0.8196078538894653,"time":1.0}],"gradientMode":1}'
     m_Space: 2147483647
   m_Property:
     name: gradient
