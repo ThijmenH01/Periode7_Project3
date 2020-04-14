@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.Experimental.VFX;
 
 public class JetPack : MonoBehaviour
 {
@@ -20,6 +21,11 @@ public class JetPack : MonoBehaviour
     [SerializeField] private float jetpackForceVertical;
 
     [SerializeField] private float jetpackForceHorizontal;
+
+    [Header("Effects")]
+    public VisualEffect smoke;
+
+    public VisualEffect sparks;
 
     [Range(0, 500)]
     [SerializeField] private float fuelUssageSpeed;
@@ -88,6 +94,9 @@ public class JetPack : MonoBehaviour
                 dir = jetpackForceHorizontal;
             }
             playerRB.AddForce(new Vector3(dir, jetpackForceVertical, Time.deltaTime * 10), ForceMode.Force);
+            smoke.playRate = 5f;
+            smoke.Play();
+            sparks.Play();
         }
     }
 

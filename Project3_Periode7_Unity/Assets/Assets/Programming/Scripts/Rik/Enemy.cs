@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     public Vector3 _BoxSize;
     private Vector3 dir;
+    private Vector3 rayDir;
     private GameObject player;
     public GameObject bullet;
     public Transform fireposition;
@@ -62,26 +63,26 @@ public class Enemy : MonoBehaviour
 
     private void CheckForObstacle()
     {
-        float magnitude = 0;
-
         switch (switchSide)
         {
             case true:
-                magnitude = -5f;
-                dir = Vector3.forward;
+                dir = Vector3.right;
+                rayDir = Vector3.right;
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 90, 0), Time.deltaTime * 10);
                 break;
 
             case false:
-                magnitude = 5f;
-                dir = Vector3.back;
+                dir = Vector3.left;
+                rayDir = Vector3.forward;
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, -90, 0), Time.deltaTime * 10);
                 break;
         }
 
-        transform.Translate(magnitude * Time.deltaTime, 0, 0, Space.World);
+        transform.Translate(dir * 5 * Time.deltaTime, Space.World);
 
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, transform.TransformDirection(dir), out hit, 1f))
+        if (Physics.Raycast(transform.position, transform.TransformPoint(rayDir), out hit, 1.5f))
         {
             if (!hit.collider.CompareTag("Enemy"))
             {
@@ -92,7 +93,7 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        Debug.DrawRay(transform.position, transform.TransformDirection(dir) * 1f, Color.blue);
+        Debug.DrawRay(transform.position, transform.TransformDirection(rayDir) * 1f, Color.blue);
     }
 
     private void DidHit()
