@@ -1,16 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerScript : MonoBehaviour
 {
     [SerializeField] private float rotSpeed;
+    [SerializeField] private RectTransform healthBar;
     public PlayerDir playerDir;
     private JetPack jetpack;
     private Rigidbody rb;
     private float rotValue;
     public static PlayerScript instance;
+    public static float hp = 20;
 
     public enum PlayerDir
     {
@@ -24,12 +28,18 @@ public class PlayerScript : MonoBehaviour
         instance = this;
         jetpack = GetComponentInChildren<JetPack>();
         rb = GetComponentInChildren<Rigidbody>();
+        healthBar = GameObject.Find("HealthBar").GetComponent<RectTransform>();
     }
 
     private void Update()
     {
         rotValue = Mathf.Clamp(rb.velocity.magnitude * 10, 0, 40);
         EnumBehaviour();
+
+        if (hp <= 0)
+        {
+            Death();
+        }
 
         if (PlayerInput(KeyCode.Space) || PlayerInput(KeyCode.JoystickButton0) || Input.GetMouseButton(1))
         {
@@ -60,10 +70,20 @@ public class PlayerScript : MonoBehaviour
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(-rotValue, 90, 0), Time.deltaTime * rotSpeed);
                 break;
         }
+        healthBar.localScale = new Vector3(hp / 20, 1, 1);
     }
 
     private void EnumBehaviour()
     {
+        if (Input.mousePosition.x < Camera.main.WorldToScreenPoint(transform.position).x)
+        {
+            playerDir = PlayerDir.Left;
+        }
+        else
+        {
+            playerDir = PlayerDir.Right;
+        }
+
         if (Input.GetAxis("Controller Axis") == -1)
         {
             playerDir = PlayerDir.Left;
@@ -97,5 +117,11 @@ public class PlayerScript : MonoBehaviour
     private bool PlayerInput(KeyCode input)
     {
         return Input.GetKey(input);
+    }
+
+    private void Death()
+    {
+        SceneManager.LoadScene(0);
+        hp = 20;
     }
 }

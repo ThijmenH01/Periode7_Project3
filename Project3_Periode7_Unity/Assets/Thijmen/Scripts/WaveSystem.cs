@@ -13,8 +13,6 @@ public class WaveSystem : MonoBehaviour
     private int amountOfEnemies = 10;
     private int currentWave;
 
-    private bool isAllowedToSpawn = true;
-
     private void Awake()
     {
         Instance = this;
@@ -22,10 +20,9 @@ public class WaveSystem : MonoBehaviour
 
     private void Update()
     {
-        if (enemiesAlive.Count == 0 && isAllowedToSpawn)
+        if (enemiesAlive.Count == 0)
         {
             StartCoroutine(SetNewWave());
-            isAllowedToSpawn = false;
         }
     }
 
@@ -47,7 +44,6 @@ public class WaveSystem : MonoBehaviour
 
     private IEnumerator SetNewWave()
     {
-        isAllowedToSpawn = true;
         SpawnWave();
         yield return new WaitForSeconds(5);
     }

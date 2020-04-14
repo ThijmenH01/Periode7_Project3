@@ -38,6 +38,7 @@ public class Bullet : MonoBehaviour
             if (Colliders[i].CompareTag("Player"))
             {
                 Destroy(gameObject);
+                PlayerScript.hp -= 1f;
             }
             if (Colliders[i].CompareTag("Enemy"))
             {
