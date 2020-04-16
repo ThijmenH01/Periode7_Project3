@@ -35,7 +35,7 @@ public class Bullet : MonoBehaviour
         Collider[] Colliders = Physics.OverlapBox(transform.position + _BoxOffset, _BoxSize);
         for (int i = 0; i < Colliders.Length; i++)
         {
-            if (Colliders[i].CompareTag("Player"))
+            if (Colliders[i].CompareTag("Player") && CompareTag("EnemyBullet"))
             {
                 Destroy(gameObject);
                 PlayerScript.hp -= 1f;

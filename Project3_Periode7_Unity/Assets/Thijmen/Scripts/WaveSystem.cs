@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WaveSystem : MonoBehaviour
 {
     [SerializeField] private GameObject enemy;
     [SerializeField] private Transform spawnpoint;
+    [SerializeField] private Text waveText;
+    [SerializeField] private Text enemycountText;
     public List<GameObject> enemiesAlive;
     public static WaveSystem Instance { get; private set; }
 
@@ -24,6 +27,8 @@ public class WaveSystem : MonoBehaviour
         {
             StartCoroutine(SetNewWave());
         }
+        waveText.text = currentWave.ToString();
+        enemycountText.text = enemiesAlive.Count.ToString();
     }
 
     private void SpawnWave()
@@ -45,6 +50,7 @@ public class WaveSystem : MonoBehaviour
     private IEnumerator SetNewWave()
     {
         SpawnWave();
+        amountOfEnemies += 1;
         yield return new WaitForSeconds(5);
     }
 }

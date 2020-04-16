@@ -5,17 +5,20 @@ using Cinemachine;
 
 public class PlayerGun : MonoBehaviour
 {
-    [SerializeField] private float fireRate = 7.5f;
+    [SerializeField] private float fireRate = 1f;
     [SerializeField] private PlayerScript player;
     [SerializeField] private GameObject bullet;
     [SerializeField] private CinemachineVirtualCamera vcam;
+    private AudioSource gunSound;
+
     private float shootTimer;
-    private float nextTimeToFire = 0f;
+    private float nextTimeToFire = 0.5f;
 
     private void Start()
     {
         player = transform.parent.GetComponentInParent<PlayerScript>();
         vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;
+        gunSound = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -26,9 +29,8 @@ public class PlayerGun : MonoBehaviour
         {
             if (Input.GetMouseButton(0) && Time.time >= nextTimeToFire || Input.GetKey(KeyCode.Joystick1Button7) && Time.time >= nextTimeToFire)
             {
-                vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0.5f;
                 Shoot();
-                Recoil();
+                vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0.5f;
             }
             else
             {
@@ -49,10 +51,7 @@ public class PlayerGun : MonoBehaviour
 
             if (PlayerScript.instance.playerDir != PlayerScript.PlayerDir.Neutral)
             {
-                //if (transform.eulerAngles.x < 50f && transform.eulerAngles.x > -50)
-                //{
                 transform.LookAt(new Vector3(pointToLook.x, pointToLook.y, transform.position.z));
-                //}
             }
         }
     }
@@ -61,7 +60,9 @@ public class PlayerGun : MonoBehaviour
     {
         GameObject Playerbullet = Instantiate(bullet, transform.GetChild(0).transform.position, Quaternion.identity);
         Playerbullet.tag = "PlayerBullet";
-        nextTimeToFire = Time.time + 1f / fireRate;
+        gunSound.Play();
+        Recoil();
+        nextTimeToFire = Time.time + 3f / fireRate;
     }
 
     private void Recoil()
