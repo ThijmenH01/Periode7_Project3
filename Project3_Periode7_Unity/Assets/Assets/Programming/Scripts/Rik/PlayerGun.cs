@@ -9,6 +9,7 @@ public class PlayerGun : MonoBehaviour
     [SerializeField] private PlayerScript player;
     [SerializeField] private GameObject bullet;
     [SerializeField] private CinemachineVirtualCamera vcam;
+    [SerializeField] private float rateOfFire;
     private AudioSource gunSound;
 
     private float shootTimer;
@@ -18,7 +19,7 @@ public class PlayerGun : MonoBehaviour
     {
         player = transform.parent.GetComponentInParent<PlayerScript>();
         vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;
-        gunSound = GetComponent<AudioSource>();
+        //gunSound = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -60,9 +61,9 @@ public class PlayerGun : MonoBehaviour
     {
         GameObject Playerbullet = Instantiate(bullet, transform.GetChild(0).transform.position, Quaternion.identity);
         Playerbullet.tag = "PlayerBullet";
-        gunSound.Play();
+        //gunSound.Play();
         Recoil();
-        nextTimeToFire = Time.time + 3f / fireRate;
+        nextTimeToFire = Time.time + rateOfFire / fireRate;
     }
 
     private void Recoil()
