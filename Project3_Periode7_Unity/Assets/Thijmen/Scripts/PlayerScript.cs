@@ -8,13 +8,14 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     [SerializeField] private float rotSpeed;
-    [SerializeField] private RectTransform healthBar;
+    private RectTransform healthBar;
     public PlayerDir playerDir;
     private JetPack jetpack;
     private Rigidbody rb;
     private float rotValue;
     public static PlayerScript instance;
     public static float hp = 20;
+    public bool SMGPickedUp;
 
     public enum PlayerDir
     {
@@ -76,6 +77,10 @@ public class PlayerScript : MonoBehaviour
                 break;
         }
         healthBar.localScale = new Vector3(hp / 20, 1, 1);
+
+        if (SMGPickedUp)
+        {
+        }
     }
 
     private void EnumBehaviour()
