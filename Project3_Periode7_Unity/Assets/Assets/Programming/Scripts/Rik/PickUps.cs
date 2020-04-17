@@ -18,6 +18,20 @@ public class PickUps : MonoBehaviour
         if (collision.collider.CompareTag("Player") && CompareTag("SMG"))
         {
             Destroy(gameObject);
+            PlayerScript.instance.gameObject.transform.GetChild(2).transform.GetChild(0).gameObject.SetActive(false);
+            PlayerScript.instance.gameObject.transform.GetChild(2).transform.GetChild(1).gameObject.SetActive(true);
+        }
+        if (collision.collider.CompareTag("Player") && CompareTag("Gun"))
+        {
+            Destroy(gameObject);
+            PlayerScript.instance.gameObject.transform.GetChild(2).transform.GetChild(1).gameObject.SetActive(false);
+            PlayerScript.instance.gameObject.transform.GetChild(2).transform.GetChild(0).gameObject.SetActive(true);
+        }
+
+        if (collision.collider.CompareTag("Player") && CompareTag("Medkit"))
+        {
+            Destroy(gameObject);
+            PlayerScript.hp += 10;
         }
     }
 }

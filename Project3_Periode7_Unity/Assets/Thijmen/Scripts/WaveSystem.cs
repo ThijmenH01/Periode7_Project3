@@ -51,6 +51,7 @@ public class WaveSystem : MonoBehaviour
     {
         SpawnWave();
         amountOfEnemies += 1;
+        MedkitSpawns.Instance.SpawnAtRandom();
         yield return new WaitForSeconds(5);
     }
 }

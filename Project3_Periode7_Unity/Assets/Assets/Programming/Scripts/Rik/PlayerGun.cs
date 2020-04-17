@@ -19,7 +19,7 @@ public class PlayerGun : MonoBehaviour
     {
         player = transform.parent.GetComponentInParent<PlayerScript>();
         vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;
-        //gunSound = GetComponent<AudioSource>();
+        gunSound = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -61,7 +61,7 @@ public class PlayerGun : MonoBehaviour
     {
         GameObject Playerbullet = Instantiate(bullet, transform.GetChild(0).transform.position, Quaternion.identity);
         Playerbullet.tag = "PlayerBullet";
-        //gunSound.Play();
+        gunSound.Play();
         Recoil();
         nextTimeToFire = Time.time + rateOfFire / fireRate;
     }

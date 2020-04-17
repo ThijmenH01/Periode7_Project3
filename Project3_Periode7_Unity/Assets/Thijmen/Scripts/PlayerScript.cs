@@ -37,10 +37,11 @@ public class PlayerScript : MonoBehaviour
         rotValue = Mathf.Clamp(rb.velocity.magnitude * 10, 0, 40);
         EnumBehaviour();
 
+        if (hp >= 20)
+            hp = 20;
+
         if (hp <= 0)
-        {
             Death();
-        }
 
         if (PlayerInput(KeyCode.Space) || PlayerInput(KeyCode.JoystickButton0) || Input.GetMouseButton(1))
         {

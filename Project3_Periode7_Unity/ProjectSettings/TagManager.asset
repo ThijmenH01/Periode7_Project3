@@ -9,6 +9,8 @@ TagManager:
   - PlayerBullet
   - EnemyBullet
   - SMG
+  - Medkit
+  - Gun
   layers:
   - Default
   - TransparentFX
